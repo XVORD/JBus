@@ -14,7 +14,7 @@ public class JBus
         }
         
         public boolean isDiscount(){
-            return true;
+            return true ;
         }
         
         public float getDiscountPercentage(int beforeDiscount, int afterDiscount){
@@ -27,17 +27,17 @@ public class JBus
             
         }
         
-        public int getOriginalPrice(int discountedPrice, float discountPercentage){
-            int hasil;
-            if (discounterPrice < discounterPercentage){
+        public float getOriginalPrice(int discountedPrice, float discountPercentage){
+            float hasil;
+            if (discountedPrice < discountPercentage){
                 return 0;
             }
-            else hasil = (discountedPrice / 1 - discountPercetage);
+            else hasil = (discountedPrice / 1 - discountPercentage);
             return hasil;
         }
         
-        public int getDiscountedPrice(int price, float discountPercentage){
-            int hasil;
+        public float getDiscountedPrice(int price, float discountPercentage){
+            float hasil;
             if (discountPercentage > 100.0f){
                 return 0;
             }
@@ -55,11 +55,11 @@ public class JBus
             return hasil;
         }
         
-        public int getTotalPrice(int price, int numberOfSeat){
-            int hasil1;
+        public float getTotalPrice(int price, int numberOfSeat){
+            float hasil1;
             float hasil2;
             hasil1 = price * numberOfSeat;
-            hasil2 = getAdminFee() * 100;
+            hasil2 = getAdminFee(price) * 100;
             return hasil1 + hasil2;
         }
     
