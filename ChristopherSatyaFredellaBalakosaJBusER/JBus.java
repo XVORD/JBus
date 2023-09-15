@@ -1,66 +1,67 @@
 package ChristopherSatyaFredellaBalakosaJBusER;
 
-public class JBus
-{
-    public void main(String[] args){
-    
+public class JBus {
+    public static void main(String[] args) {
+        System.out.println("angka : " + getTotalPrice(0, 2));
     }
-        public int getBusId(){
-            return 0;
+
+    public static int getBusId() {
+        return 0;
+    }
+
+    public static String getBusName() {
+        return "Bus";
+    }
+
+    public static boolean isDiscount() {
+        return true;
+    }
+
+    public static float getDiscountPercentage(int beforeDiscount, int afterDiscount) {
+        float hasil;
+        if (beforeDiscount <= afterDiscount) {
+            hasil = 0.0f;
+        } else {
+            hasil = (beforeDiscount - afterDiscount) / 10.0f;
         }
-        
-        public String getBusName(){
-            return "Bus";
+        return hasil;
+    }
+
+    public static int getOriginalPrice(int discountedPrice, float discountPercentage) {
+        int hasil;
+        if (discountPercentage >= 100.0f) {
+            hasil = 0;
+        } else {
+            hasil = (int)(discountedPrice / (1.0f - discountPercentage / 100));
         }
-        
-        public boolean isDiscount(){
-            return true ;
+        return hasil;
+    }
+
+    public static int getDiscountedPrice(int price, float discountPercentage) {
+        int hasil;
+        if (discountPercentage > 100) {
+            hasil = 0;
+        } else {
+            hasil = price * ((100-(int)discountPercentage) / 100);
         }
-        
-        public float getDiscountPercentage(int beforeDiscount, int afterDiscount){
-            int hasil;
-            if (beforeDiscount < afterDiscount){
-                return 0.0f;
-            }
-            else hasil = (beforeDiscount - afterDiscount)/10;
-                return hasil;
-            
-        }
-        
-        public float getOriginalPrice(int discountedPrice, float discountPercentage){
-            float hasil;
-            if (discountedPrice < discountPercentage){
-                return 0;
-            }
-            else hasil = (discountedPrice / 1 - discountPercentage);
-            return hasil;
-        }
-        
-        public float getDiscountedPrice(int price, float discountPercentage){
-            float hasil;
-            if (discountPercentage > 100.0f){
-                return 0;
-            }
-            else hasil = price / discountPercentage;
-                return hasil;
-        }
-        
-        public float getAdminFeePercentage(){
-            return 0.05f;
-        }
-        
-        public int getAdminFee(int price){
-            int hasil;
-            hasil = price / 20;
-            return hasil;
-        }
-        
-        public float getTotalPrice(int price, int numberOfSeat){
-            float hasil1;
-            float hasil2;
-            hasil1 = price * numberOfSeat;
-            hasil2 = getAdminFee(price) * 100;
-            return hasil1 + hasil2;
-        }
-    
+        return hasil;
+    }
+
+    public static float getAdminFeePercentage() {
+        return 0.05f;
+    }
+
+    public static int getAdminFee(int price) {
+        int hasil;
+        hasil = price / 20;
+        return hasil;
+    }
+
+    public static int getTotalPrice(int price, int numberOfSeat) {
+        int hasil1;
+        int hasil2;
+        hasil1 = price * numberOfSeat;
+        hasil2 = getAdminFee(price) * numberOfSeat;
+        return hasil1 + hasil2;
+    }
 }
