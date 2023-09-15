@@ -2,7 +2,11 @@ package ChristopherSatyaFredellaBalakosaJBusER;
 
 public class JBus {
     public static void main(String[] args) {
-        System.out.println("angka : " + getTotalPrice(0, 2));
+        Bus testBus = createBus();
+        System.out.println(testBus.name);
+        System.out.println(testBus.facility);
+        System.out.println(testBus.price.price);
+        System.out.println(testBus.capacity);
     }
 
     public static int getBusId() {
@@ -63,5 +67,10 @@ public class JBus {
         hasil1 = price * numberOfSeat;
         hasil2 = getAdminFee(price) * numberOfSeat;
         return hasil1 + hasil2;
+    }
+    public static Bus createBus(){
+        Price price = new Price(750000, 5);
+        Bus bus = new Bus("Netlab Bus", Facility.LUNCH, price, 25);
+        return bus;
     }
 }
