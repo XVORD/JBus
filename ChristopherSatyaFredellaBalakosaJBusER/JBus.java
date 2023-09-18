@@ -2,14 +2,15 @@ package ChristopherSatyaFredellaBalakosaJBusER;
 
 public class JBus {
     public static void main(String[] args) {
-        Bus testBus = createBus();
-        System.out.println(testBus.name);
-        System.out.println(testBus.facility);
-        System.out.println(testBus.price.price);
-        System.out.println(testBus.capacity);
+        Price tesPrice = new Price(200);
+        Voucher tes = new Voucher("halo", 200, Type.REBATE, 150, 100);
+        System.out.println(tes.name);
+        System.out.println(tes.canApply(tesPrice));
+        System.out.println(tes.apply(tesPrice));
     }
+}
 
-    public static int getBusId() {
+    /*public static int getBusId() {
         return 0;
     }
 
@@ -73,4 +74,4 @@ public class JBus {
         Bus bus = new Bus("Netlab Bus", Facility.LUNCH, price, 25);
         return bus;
     }
-}
+}*/
