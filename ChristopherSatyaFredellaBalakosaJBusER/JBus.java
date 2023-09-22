@@ -2,11 +2,12 @@ package ChristopherSatyaFredellaBalakosaJBusER;
 
 public class JBus {
     public static void main(String[] args) {
-        Price tesPrice = new Price(200);
-        Voucher tes = new Voucher("halo", 200, Type.REBATE, 150, 100);
-        System.out.println(tes.name);
-        System.out.println(tes.canApply(tesPrice));
-        System.out.println(tes.apply(tesPrice));
+        Payment testPayment = new Payment(1, 1, 1, "A", 1, "A", "A");
+        Invoice testInvoice = new Invoice(2,2,2, "B");
+        Station testStation = new Station(3, "C", City.DEPOK);
+        System.out.println(testPayment.print());
+        System.out.println(testInvoice.print());
+        System.out.println(testStation.print());
     }
 }
 
