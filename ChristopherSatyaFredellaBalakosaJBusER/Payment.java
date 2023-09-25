@@ -17,8 +17,8 @@ public class Payment extends Invoice
         this.departureDate = departureDate;
         this.busSeat = busSeat;
     }
-    public String print(){
-        return "\nID : " + super.id + "\nBuyer ID : " + super.buyerId + "\nRenter ID : " + super.renterId + "\nTime : " + super.time + "\nBus ID : " + this.busId + "\nDeparture Date : " + this.departureDate + "\nBus Seat : " + this.busSeat;
+    public String toString(){
+        return "\nID : " + this.id + "\nBuyer ID : " + super.buyerId + "\nRenter ID : " + super.renterId + "\nTime : " + super.time + "\nBus ID : " + this.busId + "\nDeparture Date : " + this.departureDate + "\nBus Seat : " + this.busSeat;
     }
     public int getBusId(){
         return this.busId;
