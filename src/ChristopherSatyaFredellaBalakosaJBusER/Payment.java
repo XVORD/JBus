@@ -2,7 +2,7 @@ package ChristopherSatyaFredellaBalakosaJBusER;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-
+import java.util.*;
 public class Payment extends Invoice {
     private int busId;
     public Timestamp departureDate;
@@ -19,7 +19,23 @@ public class Payment extends Invoice {
         this.busSeat = busSeat;
         this.departureDate = new Timestamp(System.currentTimeMillis());
     }
-    public static boolean isAvailable(Timestamp departureSchedule, String seat,  Bus bus) {
+    public static boolean makeBooking(Timestamp departureSchedule, List<String> seats, Bus bus){
+        Schedule schedule = availableSchedule(departureSchedule, seats, bus);
+        if(schedule != null){
+            schedule.bookSeat(seats);
+            return true;
+        }
+        return false;
+    }
+    public static Schedule availableSchedule(Timestamp departureSchedule, List<String> seats, Bus bus){
+        for (Schedule schedule : bus.schedules){
+            if (schedule.departureSchedule.equals(departureSchedule) && schedule.isSeatAvailable(seats)){
+                return schedule;
+            }
+        }
+        return null;
+    }
+    /*public static boolean isAvailable(Timestamp departureSchedule, String seat,  Bus bus) {
         for(Schedule s : bus.schedules){
             if(s.isSeatAvailable(seat) == true){
                 return true;
@@ -27,18 +43,10 @@ public class Payment extends Invoice {
         }
         
         return false;    
-    }
+    }*/
 
     public static boolean makeBooking(Timestamp departureSchedule, String seat,  Bus bus) {
-        if (isAvailable(departureSchedule, seat, bus)) {
-            for(Schedule schedule : bus.schedules){
-                if(schedule.departureSchedule.equals(departureSchedule)){
-            schedule.bookSeat(seat);
-            return true;
-                }
-            }
-        }
-        return false;
+        return makeBooking(departureSchedule, List.of(seat), bus);
     }
     public int getBusId() {
         return this.busId;

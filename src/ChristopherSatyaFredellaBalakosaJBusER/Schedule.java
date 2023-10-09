@@ -3,6 +3,7 @@ import java.sql.Timestamp;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class Schedule {
     public Timestamp departureSchedule;
@@ -24,12 +25,29 @@ public class Schedule {
         return availability != null && availability;
     }
     public void bookSeat(String seat){
-        if(isSeatAvailable(seat)){
-            seatAvailability.put(seat, false);
-            System.out.println("Seat " + seat + "booked successfully."); 
-        } else {
-            System.out.println("Seat " + seat + "is not available.");
+        this.seatAvailability.put(seat, false);
+    }
+    public void bookSeat(List<String> seats){
+        for (String seat : seats){
+            bookSeat(seat);
         }
+    }
+    @Override
+    public String toString(){
+        int seatTotal = seatAvailability.size();
+        int seatOccupied = (int) seatAvailability.values().stream().filter(available -> !available).count();
+
+        return "Schedule: " + departureSchedule +
+                "\nOccupied " + seatOccupied +
+                "\nTotal Seats: " + seatTotal;
+    }
+    public boolean isSeatAvailable(List<String> seats){
+        for (String seat : seats){
+            if (!isSeatAvailable(seat)){
+                return false;
+            }
+        }
+        return true;
     }
     public void printSchedule() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM d, yyyy HH:mm:ss");
@@ -48,5 +66,6 @@ public class Schedule {
         }
         System.out.println("\n");
     }
+
 }
 

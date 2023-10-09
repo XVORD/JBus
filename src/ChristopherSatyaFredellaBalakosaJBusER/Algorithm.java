@@ -8,6 +8,37 @@ public class Algorithm {
     private Algorithm(){
 
     }
+    public static <T> List<T> paginate(T[] array, int page, int pageSize, Predicate<T> pred){
+        final Iterator<T> it = Arrays.stream(array).iterator();
+        return paginate(it, page, pageSize, pred);
+    }
+
+    public static <T> List<T> paginate(Iterable<T> iterable, int page, int pageSize, Predicate<T> pred){
+        final Iterator<T> it = iterable.iterator();
+        return paginate(it, page, pageSize, pred);
+    }
+
+    public static <T> List<T> paginate(Iterator<T> iterator, int page, int pageSize, Predicate<T> pred) {
+        List<T> result = new ArrayList<>();
+        int skipElemen= page * pageSize;
+
+        while (skipElemen > 0 && iterator.hasNext()) {
+            iterator.next();
+            skipElemen--;
+        }
+        int tambahElemen = 0;
+        while (tambahElemen < pageSize && iterator.hasNext()) {
+            T element = iterator.next();
+            if (pred.predicate(element)) {
+                result.add(element);
+                tambahElemen++;
+            }
+        }
+
+        return result;
+    }
+
+
     public static <T> boolean exists(T[] array, T value) {
         final Iterator<T> it = Arrays.stream(array).iterator();
         return exists(it, value);
