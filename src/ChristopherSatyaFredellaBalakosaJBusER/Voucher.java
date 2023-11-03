@@ -1,6 +1,6 @@
 package ChristopherSatyaFredellaBalakosaJBusER;
 
-public class Voucher extends Serializable implements FileParser{
+public class Voucher extends Serializable{
     public String name;
     private boolean used;
     public double minimum;
@@ -44,13 +44,5 @@ public class Voucher extends Serializable implements FileParser{
         } else {
             return false;
         }
-    }
-    public Object write(){
-        
-        return null;
-    }
-    public boolean read(String string){
-        
-        return false;
     }
 }

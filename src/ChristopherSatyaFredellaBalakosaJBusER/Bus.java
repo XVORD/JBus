@@ -3,7 +3,7 @@ import java.util.List;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-public class Bus extends Serializable implements FileParser
+public class Bus extends Serializable
 {
     public int capacity;
     public Facility facility;
@@ -27,7 +27,19 @@ public class Bus extends Serializable implements FileParser
        this.schedules = new ArrayList<Schedule>();
     }
     public void addSchedule(Timestamp schedule){
-        schedules.add(new Schedule(schedule, this.capacity));
+        boolean isDuplicate = false;
+        for (Schedule existingSchedule : schedules) {
+            if (existingSchedule.departureSchedule.equals(schedule)) {
+                isDuplicate = true;
+                break;
+            }
+        }
+        if (!isDuplicate) {
+            schedules.add(new Schedule(schedule, this.capacity));
+            System.out.println("Jadwal berhasil ditambahkan.");
+        } else {
+            System.out.println("Terdapat jadwal yang terduplikasi, jadwal tidak ditambahkan.");
+        }
     }
     /*public void printSchedule(Schedule schedule){
         System.out.println("Daftar kursi dan ketersediaan kursi :");
@@ -35,14 +47,7 @@ public class Bus extends Serializable implements FileParser
             System.out.println(seatNumber + ":" + schedule.seatAvailability.get(seatNumber));
         }
     }*/
-    public String toString(){
+    public String toString() {
         return "ID :" + this.id + "\nName :" + this.name + "\nFacility :" + this.facility + "\nPrice :" + this.price + "\nBus Type :" + this.busType + "\nCity :" + this.city + "\nDeparture :" + this.departure + "\nArrival :" + this.arrival + "\nCapacity :" + this.capacity;
     }
-    public Object write(){
-        
-        return null;
-    }
-    public boolean read(String string){
-        return false;
-    }    
 }
