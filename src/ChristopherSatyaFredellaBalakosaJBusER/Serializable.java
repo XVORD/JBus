@@ -2,36 +2,34 @@ package ChristopherSatyaFredellaBalakosaJBusER;
 
 import java.util.HashMap;
 
-public class Serializable
-{
+public class Serializable {
     public final int id;
-    private static HashMap<Class<?>, Integer> mapCounter = new HashMap<>();
+    private static HashMap<Class<?>, Integer> mapCounter = new HashMap<Class <?>, Integer>();
     protected Serializable(){
-        Class<?> aClass = this.getClass();
-        if (!mapCounter.containsKey(aClass)){
-            mapCounter.put(aClass, 1);
-        }
-        id = mapCounter.get(aClass);
-        mapCounter.put(aClass, mapCounter.get(aClass)+1);
+        Integer counter = mapCounter.get(getClass());
+        counter = counter == null ? 0 : counter + 1;
+        mapCounter.put(getClass(), counter);
+        this.id = counter;
     }
-    public static Integer getLastAssignedId (Class<?> aClass){
-        return mapCounter.getOrDefault(aClass,0);
+
+    public static <T> Integer getLastAssignedId(Class<T> getter ){
+        return mapCounter.get(getter);
     }
-    public static Integer setLastAssignedId(Class<?> aClass, int value){
-        return mapCounter.replace(aClass, value);
+
+    public static <T> Integer setLastAssignedId(Class<T> setter, int number){
+        return mapCounter.put(setter, number);
     }
-    public boolean equals(Serializable other){
-        return this.id == other.id;
+
+    public int compareTo(Serializable temp){
+        return ((Integer)this.id).compareTo(temp.id);
     }
-    public int CompareTo(Serializable other){
-        return Integer.compare(this.id, other.id);
+
+    public boolean equals(Serializable temp){
+        return temp.id == this.id;
     }
-    public boolean equals(Object obj){
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass())
-            return false;
-        Serializable other = (Serializable) obj;
-        return this.id == other.id;
+
+    public boolean equals(Object object){
+        return object instanceof Serializable && ((Serializable) object).id == this.id;
     }
 
 }
