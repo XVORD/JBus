@@ -1,4 +1,6 @@
 package com.ChristopherSatyaFredellaBalakosaJBusER;
+import com.ChristopherSatyaFredellaBalakosaJBusER.dbjson.Serializable;
+
 import java.sql.Timestamp;
 
 public class Invoice extends Serializable

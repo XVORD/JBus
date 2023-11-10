@@ -1,4 +1,6 @@
 package com.ChristopherSatyaFredellaBalakosaJBusER;
+import com.ChristopherSatyaFredellaBalakosaJBusER.dbjson.Serializable;
+
 import java.util.regex.*;
 public class Renter extends Serializable {
     public String address;

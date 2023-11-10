@@ -1,6 +1,8 @@
 package com.ChristopherSatyaFredellaBalakosaJBusER;
 
-public class Voucher extends Serializable{
+import com.ChristopherSatyaFredellaBalakosaJBusER.dbjson.Serializable;
+
+public class Voucher extends Serializable {
     public String name;
     private boolean used;
     public double minimum;

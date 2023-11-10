@@ -1,5 +1,7 @@
 package com.ChristopherSatyaFredellaBalakosaJBusER;
 
+import com.ChristopherSatyaFredellaBalakosaJBusER.dbjson.Serializable;
+
 public class Review extends Serializable
 {
     public String date;

@@ -1,4 +1,6 @@
 package com.ChristopherSatyaFredellaBalakosaJBusER;
+import com.ChristopherSatyaFredellaBalakosaJBusER.dbjson.Serializable;
+
 import java.util.List;
 import java.sql.Timestamp;
 import java.util.ArrayList;

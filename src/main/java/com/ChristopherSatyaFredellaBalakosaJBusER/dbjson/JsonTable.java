@@ -1,5 +1,6 @@
-package com.ChristopherSatyaFredellaBalakosaJBusER;
+package com.ChristopherSatyaFredellaBalakosaJBusER.dbjson;
 
+import com.ChristopherSatyaFredellaBalakosaJBusER.dbjson.Serializable;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
@@ -28,9 +29,9 @@ public class JsonTable<T> extends Vector<T> {
 
                 int lastId = 0;
                 for (T item : this) {
-                    if (item instanceof Serializable) {
+                    if (item instanceof com.ChristopherSatyaFredellaBalakosaJBusER.dbjson.Serializable) {
 
-                        Serializable serializableItem = (Serializable) item;
+                        com.ChristopherSatyaFredellaBalakosaJBusER.dbjson.Serializable serializableItem = (com.ChristopherSatyaFredellaBalakosaJBusER.dbjson.Serializable) item;
                         lastId = Math.max(lastId, serializableItem.id);
                     }
                 }
