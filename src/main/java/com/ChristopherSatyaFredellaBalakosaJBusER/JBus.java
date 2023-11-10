@@ -14,8 +14,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class JBus {
     public static void main(String[] args) {
-        JsonDBEngine.Run(Jbus.class);
-        SpringApplication.run(Jbus.class, args);
+        JsonDBEngine.Run(JBus.class);
+        SpringApplication.run(JBus.class, args);
         Runtime.getRuntime().addShutdownHook(new Thread(()-> JsonDBEngine.join()));
     }
 }/*

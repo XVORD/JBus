@@ -1,1 +1,1 @@
-[{"email":"dio@gmail.com","name":"Dio","password":"NgikNgok","REGEX_EMAIL":"^[a-zA-Z0-9]+@[a-zA-Z]+\\.[a-zA-Z]{2,}$","REGEX_PASSWORD":"^(?\u003d.*[a-z])(?\u003d.*[A-Z])(?\u003d.*\\d)[a-zA-Z\\d]{8,}$","id":0},{"email":"dio@gmail.com","name":"Dio","password":"NgikNgok","REGEX_EMAIL":"^[a-zA-Z0-9]+@[a-zA-Z]+\\.[a-zA-Z]{2,}$","REGEX_PASSWORD":"^(?\u003d.*[a-z])(?\u003d.*[A-Z])(?\u003d.*\\d)[a-zA-Z\\d]{8,}$","id":1}]
+[]

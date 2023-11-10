@@ -33,4 +33,11 @@ public class Account extends Serializable {
         }
         return false;
     }
+    public boolean topUp(double amount){
+        if (amount <= 0){
+            return false;
+        }
+        this.balance += amount;
+        return true;
+    }
 }
