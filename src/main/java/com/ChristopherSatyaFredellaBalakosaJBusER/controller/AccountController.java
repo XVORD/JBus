@@ -51,11 +51,12 @@ public class AccountController implements BasicGetController<Account> {
         Matcher matcherPassword = patternPassword.matcher(password);
         Matcher matcherEmail = patternEmail.matcher((email));
 
-        if (!name.isBlank() && matcherPassword.find() && matcherEmail.find() && !Algorithm.exists(accountTable, s) == false) {
+        if (name.isBlank() == false && matcherPassword.find() && matcherEmail.find() && Algorithm.exists(accountTable,s) == false) {
             String passwordToHash = password;
             String generatedPassword = null;
 
-            try {
+            try
+            {
                 MessageDigest md = MessageDigest.getInstance("MD5");
 
                 md.update(passwordToHash.getBytes());
@@ -63,19 +64,21 @@ public class AccountController implements BasicGetController<Account> {
                 byte[] bytes = md.digest();
 
                 StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < bytes.length; i++) {
+                for (int i = 0;i < bytes.length;i++) {
                     sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
                 }
                 generatedPassword = sb.toString();
-            } catch (NoSuchAlgorithmException e) {
+            }
+            catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
-            Account temp = new Account(name, email, generatedPassword);
-            accountTable.addElement(temp);
-            return new BaseResponse<>(true, "Berhasil Register", temp);
+            Account tmp =  new Account(name, email, generatedPassword);
+            accountTable.addElement(tmp);
+            return new BaseResponse<>(true, "Berhasil register", tmp);
         }
-        return new BaseResponse<>(false, "Gagal Register",null);
-        }
+        return new BaseResponse<>(false, "Gagal register", null);
+
+    }
 
     @PostMapping("/login")
     BaseResponse<Account> login(

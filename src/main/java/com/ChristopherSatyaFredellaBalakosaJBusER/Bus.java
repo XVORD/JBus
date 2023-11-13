@@ -7,26 +7,26 @@ import java.util.ArrayList;
 
 public class Bus extends Serializable
 {
+    public int accountId;
     public int capacity;
-    public Facility facility;
+    public List<Facility> facilities;
     public String name;
     public Price price;
     public Station departure;
     public Station arrival;
     public BusType busType;
-    public City city;
     public List<Schedule> schedules;
-    public Bus( String name,Facility facility, Price price, int capacity, BusType busType, City city, Station departure, Station arrival){
+    public Bus(int accountId, String name,List<Facility> facilities, Price price, int capacity, BusType busType, Station departure, Station arrival){
        super();
-       this.facility = facility;
+       this.facilities = new ArrayList<Facility>();
        this.name = name;
        this.price = price;
        this.capacity = capacity;
        this.busType = busType;
-       this.city = city;
        this.departure = departure;
        this.arrival = arrival;
        this.schedules = new ArrayList<Schedule>();
+       this.accountId = accountId;
     }
     public void addSchedule(Timestamp schedule){
         boolean isDuplicate = false;
@@ -49,7 +49,10 @@ public class Bus extends Serializable
             System.out.println(seatNumber + ":" + schedule.seatAvailability.get(seatNumber));
         }
     }*/
+    public Object write(){
+        return null;
+    }
     public String toString() {
-        return "ID :" + this.id + "\nName :" + this.name + "\nFacility :" + this.facility + "\nPrice :" + this.price + "\nBus Type :" + this.busType + "\nCity :" + this.city + "\nDeparture :" + this.departure + "\nArrival :" + this.arrival + "\nCapacity :" + this.capacity;
+        return "ID :" + this.id + "\nName :" + this.name + "\nFacility :" + this.facilities + "\nPrice :" + this.price + "\nBus Type :" + this.busType + "\nDeparture :" + this.departure + "\nArrival :" + this.arrival + "\nCapacity :" + this.capacity;
     }
 }
