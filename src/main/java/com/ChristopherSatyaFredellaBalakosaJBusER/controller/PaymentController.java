@@ -43,21 +43,22 @@ public class PaymentController implements BasicGetController<Payment>{
 
     @RequestMapping(value="/{id}/accept", method = RequestMethod.POST)
     public BaseResponse<Payment> accept(@PathVariable int id){
-        if (Algorithm.<Payment>exists(paymentTable, x -> x.id == id)){
-            return new BaseResponse<>(false,"payment ada", null);
+        if(Algorithm.<Payment>find(paymentTable,  x -> x.id == id) != null) {
+            Payment p = Algorithm.<Payment>find(paymentTable, x -> x.id == id);
+            p.status = Invoice.PaymentStatus.SUCCESS;
+            return new BaseResponse<>(true, "Berhasil", p);
         }
-        Payment newPayment = Algorithm.<Payment>find(paymentTable, x -> x.id == id);
-        newPayment.status = Invoice.PaymentStatus.SUCCESS;
-        return new BaseResponse<>(true, "payment accept", newPayment);
-    }
+        return new BaseResponse<>(false, "Gagal melakukan booking", null);
 
+    }
     @RequestMapping(value="/{id}/cancel", method = RequestMethod.POST)
     public BaseResponse<Payment> cancel(@PathVariable int id){
-        if (!(Algorithm.<Payment>exists(paymentTable, x -> x.id == id))){
-            return new BaseResponse<>(false,"payment tidak ada", null);
+        if(Algorithm.<Payment>find(paymentTable,  x -> x.id == id) != null) {
+            Payment p = Algorithm.<Payment>find(paymentTable, x -> x.id == id);
+            p.status = Invoice.PaymentStatus.FAILED;
+            return new BaseResponse<>(true, "Berhasil", p);
         }
-        Payment newPayment = Algorithm.<Payment>find(paymentTable, x -> x.id == id);
-        newPayment.status = Invoice.PaymentStatus.FAILED;
-        return new BaseResponse<>(true, "payment cancel", newPayment);
+        return new BaseResponse<>(false, "Gagal melakukan booking", null);
+
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,7 +27,6 @@ public class AccountController implements BasicGetController<Account> {
         return "account page";
     }
 
-    @Override
     public JsonTable<Account> getJsonTable() {
         return accountTable;
     }
@@ -41,43 +41,37 @@ public class AccountController implements BasicGetController<Account> {
             @RequestParam String email,
             @RequestParam String password
     ) {
-        Predicate<Account> s = (valid) -> valid.email.equals(email);
-        String REGEX_EMAIL = "^[a-zA-Z0-9]+@[a-zA-Z_]+?\\.[a-zA-Z.]+[a-zA-Z]+$";
-        String REGEX_PASSWORD = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$";
+        if(name.isBlank())
+            return new BaseResponse<>(false, "Gagal register ", null);
 
-        Pattern patternEmail = Pattern.compile("REGEX_EMAIL");
-        Pattern patternPassword = Pattern.compile("REGEX_PASSWORD");
-
-        Matcher matcherPassword = patternPassword.matcher(password);
-        Matcher matcherEmail = patternEmail.matcher((email));
-
-        if (name.isBlank() == false && matcherPassword.find() && matcherEmail.find() && Algorithm.exists(accountTable,s) == false) {
-            String passwordToHash = password;
-            String generatedPassword = null;
-
-            try
-            {
+        Account account = new Account(name, email, password);
+        if(!account.validate())
+            return new BaseResponse<>(false, "Gagal register", null);
+        else {
+            String generatedPass = null;
+            try{
                 MessageDigest md = MessageDigest.getInstance("MD5");
-
-                md.update(passwordToHash.getBytes());
-
+                md.update(password.getBytes());
                 byte[] bytes = md.digest();
-
                 StringBuilder sb = new StringBuilder();
-                for (int i = 0;i < bytes.length;i++) {
-                    sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+                for (byte byteTemp : bytes){
+                    sb.append(String.format("%02x", byteTemp & 0xff));
                 }
-                generatedPassword = sb.toString();
-            }
-            catch (NoSuchAlgorithmException e) {
+                generatedPass = sb.toString();
+            } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
-            Account tmp =  new Account(name, email, generatedPassword);
-            accountTable.addElement(tmp);
-            return new BaseResponse<>(true, "Berhasil register", tmp);
+            ArrayList<String> list = new ArrayList<String>();
+            for (Account a : accountTable){
+                list.add(a.email);
+            }
+            if(!Algorithm.exists(list, email)) {
+                account.name = name; account.email = email; account.password = generatedPass;
+                accountTable.add(account);
+                return new BaseResponse<>(true, "Berhasil register", account);
+            } else
+                return new BaseResponse<>(false, "Gagal register ", null);
         }
-        return new BaseResponse<>(false, "Gagal register", null);
-
     }
 
     @PostMapping("/login")
@@ -93,8 +87,8 @@ public class AccountController implements BasicGetController<Account> {
             md.update(passwordToHash.getBytes());
             byte[] bytes = md.digest();
             StringBuilder sb = new StringBuilder();
-            for (int i = 0;i < bytes.length;i++) {
-                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            for (byte byteTemp : bytes){
+                sb.append(String.format("%02x", byteTemp & 0xff));
             }
             generatedPassword = sb.toString();
         }

@@ -54,17 +54,8 @@ public class BusController implements BasicGetController<Bus> {
             @RequestParam int busId,
             @RequestParam String time
     ){
-        try{
         Bus bus = Algorithm.<Bus>find(busTable, x -> x.id == busId);
-        if (bus != null) {
-            bus.addSchedule(Timestamp.valueOf(time));
-
-            return new BaseResponse<>(true, "Schedule berhasil ditambahkan", bus);
-        } else {
-            return new BaseResponse<>(false, "Gagal, Bus dengan ID " + busId + " tidak ditemukan", null);
-        }
-    } catch (Exception e) {
-        return new BaseResponse<>(false, "Gagal menambahkan schedule. Error: " + e.getMessage(), null);
-    }
+        bus.addSchedule(Timestamp.valueOf(time));
+        return new BaseResponse<>(true, "Schedule Berhasil ditambahkan", bus);
     }
 }
