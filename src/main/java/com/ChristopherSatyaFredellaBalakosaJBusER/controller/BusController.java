@@ -3,10 +3,7 @@ package com.ChristopherSatyaFredellaBalakosaJBusER.controller;
 import com.ChristopherSatyaFredellaBalakosaJBusER.*;
 import com.ChristopherSatyaFredellaBalakosaJBusER.dbjson.JsonAutowired;
 import com.ChristopherSatyaFredellaBalakosaJBusER.dbjson.JsonTable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -58,4 +55,9 @@ public class BusController implements BasicGetController<Bus> {
         bus.addSchedule(Timestamp.valueOf(time));
         return new BaseResponse<>(true, "Schedule Berhasil ditambahkan", bus);
     }
+
+    @GetMapping("/getMyBus")
+    public List<Bus> getMyBus(@RequestParam int accountId) {
+        return Algorithm.<Bus>collect(getJsonTable(),
+                b->b.accountId==accountId);}
 }
