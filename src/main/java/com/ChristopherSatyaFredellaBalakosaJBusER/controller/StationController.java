@@ -7,17 +7,38 @@ import com.ChristopherSatyaFredellaBalakosaJBusER.dbjson.JsonAutowired;
 import com.ChristopherSatyaFredellaBalakosaJBusER.dbjson.JsonTable;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+/**
+ * StationController class
+ * Handles HTTP requests related to stations and provides functionality
+ * for creating stations and retrieving station information.
+ * @author Christopher Satya
+ */
 @RestController
 @RequestMapping("/station")
 public class StationController implements BasicGetController<Station> {
-    public static @JsonAutowired(value = Station.class, filepath = "C:\\Kuliah\\Java Prak\\JBus\\data\\station.json")
+    /**
+     * The JSON database table for storing `Station` objects.
+     */
+    public static @JsonAutowired(value = Station.class, filepath = "data/station.json")
     JsonTable<Station> stationTable;
+    /**
+     * Retrieves the JSON database table associated with this controller.
+     * @return The JSON table for `Station` objects.
+     */
     @Override
     public JsonTable<Station> getJsonTable() {
         return stationTable;
     }
 
-    //Add new Station
+    /**
+     * Handles the HTTP POST request to create a new station. This method allows users to add a new
+     * station with the specified details, including the station name, city, and address.
+     * @param stationName The name of the new station.
+     * @param city        The city where the station is located (must be a valid enum value).
+     * @param address     The address of the station.
+     * @return A `BaseResponse` object indicating the result of the station creation operation.
+     */
     @PostMapping("/create")
     public BaseResponse<Station> createStation(
             @RequestParam String stationName,
@@ -49,5 +70,12 @@ public class StationController implements BasicGetController<Station> {
             return new BaseResponse<>(false, "An error occurred while adding the station", null);
         }
     }
+    /**
+     * Handles the HTTP GET request to retrieve a list of all existing stations.
+     * @return A list of `Station` objects representing all available stations.
+     */
+    @GetMapping("/getAll")
+    public List<Station> getAllStation() { return getJsonTable();}
+
 
 }

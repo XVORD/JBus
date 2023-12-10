@@ -3,6 +3,11 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.*;
 
+/**
+ * Algorithm Class
+ * Class used to perform basic algorithms to a specified list of objects.
+ * @author Christopher Satya
+ */
 public class Algorithm {
 
     private Algorithm(){
